@@ -1,11 +1,10 @@
-var randomWords = ["dog", "cat", "bird", "horse"];
+var randomWords = ["dog", "cat", "bird", "horse", "bull"];
 var maxTries = 10;
 var guessedLetters = [];
 var currentWordIndex = "";
 var guessingWord = [];
 var remainingGuesses = 0;
-// var gameStarted = false;
-// var gameFinished = false;
+var gameFinished = false;
 var wins = 0;
 var userGuess = "";
 
@@ -33,7 +32,7 @@ function newWord() {
 // Refresh display
 function updateDisplay() {
   document.getElementById("totalWins").innerText = wins;
-  document.getElementById("currentWord").innerText = "";
+  document.getElementById("currentWord").innerText = " ";
   for (var i = 0; i < guessingWord.length; i++) {
     document.getElementById("currentWord").innerText += guessingWord[i];
   }
@@ -42,10 +41,19 @@ function updateDisplay() {
 }
 
 // On keystroke
-document.onkeyup = function(event) {
-  userGuess = event.key.toLowerCase();
-  makeGuess(userGuess);
-  console.log(userGuess);
+document.onkeypress = function(event) {
+  if (remainingGuesses === 0) {
+    gameFinished = true;
+  } else {
+    var char = event.key || event.charCode;
+    // if (char >= 90 && char <= 65) {
+    userGuess = char.toLowerCase();
+    makeGuess(userGuess);
+    console.log(userGuess);
+    // } else {
+    // return console.log("not a letter");
+    // }
+  }
 };
 
 // Checks to see if letter has been guessed if not pushes to guessedLetters array
@@ -83,8 +91,8 @@ function search(letter) {
 function checkWin() {
   if (guessingWord.indexOf(" _") === -1) {
     wins++;
-    // gameFinished = true;
-    resetGame();
+    gameFinished = true;
+    // resetGame();
   }
 }
 
