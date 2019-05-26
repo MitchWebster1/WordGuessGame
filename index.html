@@ -4,22 +4,38 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
+    <title>Word Guess Game!</title>
     <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
   </head>
   <body>
-    <div>
-      <h2>Press any key to get started!</h2>
-      <h4>Wins</h4>
-      <h5 id="totalWins"></h5>
-      <h4>Current Word</h4>
-      <h3 id="currentWord"></h3>
-      <h4>Guesses Remaining</h4>
-      <h5 id="remainingGuesses"></h5>
-      <h4>Letters Guessed</h4>
-      <h3 id="guessedLetters"></h3>
+    <div class="container">
+      <header><h1>Word Guess Game!</h1></header>
+      <div class="getStarted">
+        <h2>Press any key to get started!</h2>
+      </div>
+      <div class="wins">
+        <h2>Wins</h2>
+        <h3 id="totalWins"></h3>
+      </div>
+      <div class="currentWord">
+        <h2>Current Word</h2>
+        <h3 id="currentWord"></h3>
+      </div>
+      <div class="wrongGuess">
+        <h2>Chances Remaining</h2>
+        <h3 id="remainingGuesses"></h3>
+      </div>
+      <div class="lettersGuessed">
+        <h2>Letters Guessed</h2>
+        <h3 id="guessedLetters"></h3>
+      </div>
+
+      <div class="resetButton">
+        <button class="button" id="reset" onclick="resetGame()">
+          Reset Game
+        </button>
+      </div>
     </div>
-    <button id="reset" onclick="resetGame()">Reset Game</button>
 
     <script src="assets/javascript/game.js"></script>
   </body>

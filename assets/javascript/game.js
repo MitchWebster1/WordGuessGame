@@ -22,10 +22,14 @@ function resetGame() {
 // Picks new word splits it up and puts it in currentWordIndex
 function newWord() {
   currentWordIndex = Math.floor(Math.random() * randomWords.length);
-  for (var i = 0; i < randomWords[currentWordIndex].length; i++) {
+  currentWordIndex = Array.from(randomWords[currentWordIndex]);
+  currentWordIndex.forEach(function(currentWordIndex) {
     guessingWord.push(" _");
-  }
-  currentWordIndex = randomWords[currentWordIndex].split("");
+  });
+  // for (var i = 0; i < randomWords[currentWordIndex].length; i++) {
+  // guessingWord.push(" _");
+  // }
+  // currentWordIndex = randomWords[currentWordIndex].split("");
   return currentWordIndex;
 }
 
@@ -42,8 +46,9 @@ function updateDisplay() {
 
 // On keystroke
 document.onkeypress = function(event) {
-  if (remainingGuesses === 0) {
+  if (remainingGuesses === 0 || gameFinished === true) {
     gameFinished = true;
+    return;
   } else {
     var char = event.key || event.charCode;
     // if (char >= 90 && char <= 65) {
@@ -89,8 +94,9 @@ function search(letter) {
 
 // Checks for all _ to be gone and updates win / resets game.
 function checkWin() {
-  if (guessingWord.indexOf(" _") === -1) {
+  if (guessingWord.indexOf(" _") === -1 && gameFinished === false) {
     wins++;
+    updateDisplay();
     gameFinished = true;
     // resetGame();
   }
