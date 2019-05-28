@@ -7,9 +7,9 @@
     <title>Word Guess Game!</title>
     <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
   </head>
-  <body>
+  <body id="background">
     <div class="container">
-      <header><h1>Word Guess Game!</h1></header>
+      <header><h1>National Park Word Guess Game!</h1></header>
       <div class="getStarted">
         <h2>Press any key to get started!</h2>
       </div>
@@ -21,6 +21,9 @@
         <h2>Current Word</h2>
         <h3 id="currentWord"></h3>
       </div>
+      <div class="userFeedback">
+        <h3 id="feedback"></h3>
+      </div>
       <div class="wrongGuess">
         <h2>Chances Remaining</h2>
         <h3 id="remainingGuesses"></h3>
@@ -29,13 +32,16 @@
         <h2>Letters Guessed</h2>
         <h3 id="guessedLetters"></h3>
       </div>
-
-      <div class="resetButton">
-        <button class="button" id="reset" onclick="resetGame()">
+      <button class="resetButton" id="reset" onclick="resetGame()">
+        <h2>
           Reset Game
-        </button>
-      </div>
+        </h2>
+      </button>
+      <button class="newWordButton" id="newWord" onclick="newWord()">
+        <h2>New Word</h2>
+      </button>
     </div>
+    <footer>copyright &copy; 2019</footer>
 
     <script src="assets/javascript/game.js"></script>
   </body>

@@ -1,51 +1,134 @@
-/* body {
-  display: grid;
-} */
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+.denali {
+  background: url(../images/denali2.jpg) no-repeat center center fixed;
+  background-size: cover;
+}
+
+.glacier {
+  background: url(../images/glacier2.jpg) no-repeat center center fixed;
+  background-size: cover;
+}
+
+.sequoia {
+  background: url(../images/sequoia2.jpg) no-repeat center center fixed;
+  background-size: cover;
+}
+
+.yosemite {
+  background: url(../images/yosemite2.jpg) no-repeat center center fixed;
+  background-size: cover;
+}
+
+.yellowstone {
+  background: url(../images/yellowstone2.jpg) no-repeat center center fixed;
+  background-size: cover;
+}
+
+.acadia {
+  background: url(../images/acadia2.jpg) no-repeat center center fixed;
+  background-size: cover;
+}
+
+.badlands {
+  background: url(../images/badlands2.jpg) no-repeat center center fixed;
+  background-size: cover;
+}
+
+.arches {
+  background: url(../images/arches2.jpg) no-repeat center center fixed;
+  background-size: cover;
+}
+
+.zion {
+  background: url(../images/zion2.jpg) no-repeat center center fixed;
+  background-size: cover;
+}
+
+.olympic {
+  background: url(../images/olympic2.jpg) no-repeat center center fixed;
+  background-size: cover;
+}
 
 .container {
+  flex: 1 0 auto;
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  grid-template-rows: repeat(6, 1fr);
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: 5rem 5rem 1fr 1fr 1fr 5rem 3rem;
   grid-gap: 1em;
+  width: 80%;
+  margin: auto;
   text-align: center;
+  background-color: #ffffff5c;
 }
 
 header {
-  grid-column: 1 / 9;
+  grid-column: 1 / 7;
   grid-row: 1;
 }
 
 .currentWord {
   grid-column: 1 / 3;
-  grid-row: 2;
+  grid-row: 3;
 }
 
 .lettersGuessed {
   grid-column: 1 / 3;
+  grid-row: 4;
+}
+
+.userFeedback {
+  grid-column: 3 / 5;
   grid-row: 3;
 }
 
 .wins {
-  grid-column: 7 / 9;
-  grid-row: 2;
-}
-
-.wrongGuess {
-  grid-column: 7 / 9;
+  grid-column: 5 / 7;
   grid-row: 3;
 }
 
-.resetButton {
-  grid-column: 3 / 4;
-  grid-row: 5;
+.wrongGuess {
+  grid-column: 5 / 7;
+  grid-row: 4;
 }
 
-.button {
-  width: 100%;
-  height: 50%;
+.resetButton {
+  grid-column: 2 / 3;
+  grid-row: 6;
+  border-radius: 10px;
+  border: 2px solid black;
+  background-color: red;
+}
+
+.newWordButton {
+  grid-column: 5 / 6;
+  grid-row: 6;
+  border-radius: 10px;
+  border: 2px solid black;
+  background-color: green;
 }
 
 .getStarted {
-  grid-column: 4 / 6;
+  grid-column: 3 / 5;
   grid-row: 2;
+}
+
+footer {
+  margin-top: auto;
+  flex-shrink: 0;
+  height: 3rem;
+  background-color: black;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

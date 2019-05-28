@@ -1,4 +1,4 @@
-var randomWords = ["dog", "cat", "bird", "horse", "bull"];
+var background = document.querySelector("#background");
 var maxTries = 10;
 var guessedLetters = [];
 var currentWordIndex = "";
@@ -7,25 +7,48 @@ var remainingGuesses = 0;
 var gameFinished = false;
 var wins = 0;
 var userGuess = "";
+var feedback = "";
+var randomWords = [
+  "denali",
+  "glacier",
+  "sequoia",
+  "yosemite",
+  "yellowstone",
+  "acadia",
+  "badlands",
+  "arches",
+  "zion",
+  "olympic"
+];
 
-// Reset Game
-function resetGame() {
+function resetDisplay() {
   remainingGuesses = maxTries;
   gameFinished = false;
   guessedLetters = [];
   guessingWord = [];
+  feedback = "";
+  background.className = "";
+}
+
+// Reset Game
+function resetGame() {
+  resetDisplay();
+  wins = 0;
   newWord();
   updateDisplay();
-  console.log(currentWordIndex);
 }
 
 // Picks new word splits it up and puts it in currentWordIndex
 function newWord() {
+  resetDisplay();
   currentWordIndex = Math.floor(Math.random() * randomWords.length);
+  background.classList.add(randomWords[currentWordIndex]);
   currentWordIndex = Array.from(randomWords[currentWordIndex]);
   currentWordIndex.forEach(function(currentWordIndex) {
     guessingWord.push(" _");
   });
+  updateDisplay();
+  console.log(currentWordIndex);
   // for (var i = 0; i < randomWords[currentWordIndex].length; i++) {
   // guessingWord.push(" _");
   // }
@@ -35,6 +58,7 @@ function newWord() {
 
 // Refresh display
 function updateDisplay() {
+  document.getElementById("feedback").innerHTML = feedback;
   document.getElementById("totalWins").innerText = wins;
   document.getElementById("currentWord").innerText = " ";
   for (var i = 0; i < guessingWord.length; i++) {
@@ -85,10 +109,12 @@ function search(letter) {
 
   if (positions.length <= 0) {
     remainingGuesses--;
+    return (feedback = "Sorry try again!");
   } else {
     for (var i = 0; i < positions.length; i++) {
       guessingWord[positions[i]] = letter;
     }
+    return (feedback = "Good guess!");
   }
 }
 
