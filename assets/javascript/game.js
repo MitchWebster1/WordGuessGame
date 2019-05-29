@@ -1,5 +1,5 @@
 var background = document.querySelector("#background");
-var maxTries = 10;
+var maxTries = 5;
 var guessedLetters = [];
 var currentWordIndex = "";
 var guessingWord = [];
@@ -18,7 +18,7 @@ var randomWords = [
   "badlands",
   "arches",
   "zion",
-  "olympic"
+  "olympic",
 ];
 
 function resetDisplay() {
@@ -26,16 +26,21 @@ function resetDisplay() {
   gameFinished = false;
   guessedLetters = [];
   guessingWord = [];
-  feedback = "";
+  feedback = "Guess a letter to begin!";
   background.className = "";
 }
 
-// Reset Game
-function resetGame() {
-  resetDisplay();
-  wins = 0;
-  newWord();
-  updateDisplay();
+// Refresh display
+function updateDisplay() {
+  document.getElementById("feedback").innerHTML = feedback;
+  document.getElementById("totalWins").innerText = wins;
+  document.getElementById("currentWord").innerText = " ";
+  for (var i = 0; i < guessingWord.length; i++) {
+    document.getElementById("currentWord").innerText += guessingWord[i];
+  }
+  document.getElementById("remainingGuesses").innerText = remainingGuesses;
+  document.getElementById("guessedLetters").innerText = guessedLetters;
+  // console.log(guessingWord);
 }
 
 // Picks new word splits it up and puts it in currentWordIndex
@@ -49,39 +54,32 @@ function newWord() {
   });
   updateDisplay();
   console.log(currentWordIndex);
-  // for (var i = 0; i < randomWords[currentWordIndex].length; i++) {
-  // guessingWord.push(" _");
-  // }
-  // currentWordIndex = randomWords[currentWordIndex].split("");
   return currentWordIndex;
 }
 
-// Refresh display
-function updateDisplay() {
-  document.getElementById("feedback").innerHTML = feedback;
-  document.getElementById("totalWins").innerText = wins;
-  document.getElementById("currentWord").innerText = " ";
-  for (var i = 0; i < guessingWord.length; i++) {
-    document.getElementById("currentWord").innerText += guessingWord[i];
-  }
-  document.getElementById("remainingGuesses").innerText = remainingGuesses;
-  document.getElementById("guessedLetters").innerText = guessedLetters;
+// Reset Game
+function resetGame() {
+  resetDisplay();
+  wins = 0;
+  newWord();
+  updateDisplay();
 }
 
-// On keystroke
+// On keystroke validates that its a character
+// I couldn't get this working with the keycode method not sure why?
 document.onkeypress = function(event) {
-  if (remainingGuesses === 0 || gameFinished === true) {
-    gameFinished = true;
+  var char = /^[a-zA-Z]+/g;
+  if (gameFinished) {
     return;
-  } else {
-    var char = event.key || event.charCode;
-    // if (char >= 90 && char <= 65) {
-    userGuess = char.toLowerCase();
+  } else if (event.key.match(char)) {
+    // (event.key >= 65 && event.key <= 90) {
+    userGuess = event.key.toLowerCase();
     makeGuess(userGuess);
     console.log(userGuess);
-    // } else {
-    // return console.log("not a letter");
-    // }
+  } else {
+    feedback = "Please select a letter!";
+    updateDisplay();
+    return;
   }
 };
 
@@ -120,11 +118,17 @@ function search(letter) {
 
 // Checks for all _ to be gone and updates win / resets game.
 function checkWin() {
-  if (guessingWord.indexOf(" _") === -1 && gameFinished === false) {
-    wins++;
-    updateDisplay();
+  if (remainingGuesses === 0 || gameFinished === true) {
+    feedback = "You lose!";
     gameFinished = true;
-    // resetGame();
+    guessingWord = currentWordIndex;
+    updateDisplay();
+    return;
+  } else if (guessingWord.indexOf(" _") === -1 && gameFinished === false) {
+    wins++;
+    feedback = "Good job you won!";
+    gameFinished = true;
+    updateDisplay();
   }
 }
 
